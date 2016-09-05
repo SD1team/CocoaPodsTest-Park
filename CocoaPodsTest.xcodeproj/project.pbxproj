@@ -17,6 +17,7 @@
 		81FC6E241D790E6500225CE7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81FC6E221D790E6500225CE7 /* LaunchScreen.storyboard */; };
 		81FC6E2F1D790E6500225CE7 /* CocoaPodsTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FC6E2E1D790E6500225CE7 /* CocoaPodsTestTests.m */; };
 		81FC6E3A1D790E6600225CE7 /* CocoaPodsTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FC6E391D790E6600225CE7 /* CocoaPodsTestUITests.m */; };
+		E35F8A631D7D407F0081E5A5 /* holder.png in Resources */ = {isa = PBXBuildFile; fileRef = E35F8A621D7D407F0081E5A5 /* holder.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		81FC6E351D790E6600225CE7 /* CocoaPodsTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FC6E391D790E6600225CE7 /* CocoaPodsTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CocoaPodsTestUITests.m; sourceTree = "<group>"; };
 		81FC6E3B1D790E6600225CE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E35F8A621D7D407F0081E5A5 /* holder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = holder.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				81A461081D794AB800E104EF /* Default-568h@2x.png */,
+				E35F8A621D7D407F0081E5A5 /* holder.png */,
 				81FC6E131D790E6500225CE7 /* CocoaPodsTest */,
 				81FC6E2D1D790E6500225CE7 /* CocoaPodsTestTests */,
 				81FC6E381D790E6600225CE7 /* CocoaPodsTestUITests */,
@@ -276,6 +279,7 @@
 				81FC6E241D790E6500225CE7 /* LaunchScreen.storyboard in Resources */,
 				81A461091D794AB800E104EF /* Default-568h@2x.png in Resources */,
 				81FC6E211D790E6500225CE7 /* Assets.xcassets in Resources */,
+				E35F8A631D7D407F0081E5A5 /* holder.png in Resources */,
 				81FC6E1F1D790E6500225CE7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

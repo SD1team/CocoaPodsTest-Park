@@ -16,16 +16,20 @@
 
 @implementation ViewController
 
-@synthesize tableView, result;
+@synthesize tableView = _tableView, result;
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    
+
+}
+- (void)viewWillAppear:(BOOL)animated
+{
     NSString* url = @"http://api.themoviedb.org/3/movie/now_playing?api_key=d74a7e1423e9267f335de909f5a25f84";
     [self parseJsonData:[NSURL URLWithString:url]];
+    _tableView.rowHeight = 100;
+    [_tableView reloadData];
+    [super viewWillAppear:animated];
 }
-
 - (void) parseJsonData: (NSURL*) URL {
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -51,21 +55,23 @@
                 if(jsonError) {
                     NSLog(@"JSON Error: %@", jsonError.localizedDescription);
                 } else {
-            
-                    result = [jsonDic objectForKey:@"results"];
-                    self.tableView.rowHeight = 100;
-                    [self.tableView reloadData];
+        
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        result = [jsonDic objectForKey:@"results"];
+                        [_tableView reloadData];
+                    });
                 }
             }
         }
     }];
     [dataTask resume];
 }
-
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
 }
+
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -84,7 +90,7 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%@", [dic objectForKey:@"title"]];
     
     NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [dic objectForKey:@"poster_path"]];
-    [cell.imageView setImageWithURL:[NSURL URLWithString:imgUrl]];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
     return cell;
 }
 
