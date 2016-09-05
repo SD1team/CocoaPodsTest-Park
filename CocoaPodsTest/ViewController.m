@@ -15,11 +15,10 @@
 
 @implementation ViewController
 
-@synthesize result;
+@synthesize tableView, result;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
@@ -31,9 +30,6 @@
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
-            //NSLog(@"response: %@", response);
-            NSLog(@"responseObject: %@", responseObject);
-
             
             NSError* jsonError;
             NSData* jsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:kNilOptions error:&jsonError];
@@ -47,26 +43,9 @@
                 if(jsonError) {
                     NSLog(@"JSON Error: %@", jsonError.localizedDescription);
                 } else {
-                
                     result = [jsonDic objectForKey:@"results"];
-                    //int size = [result count];
-                    //NSLog(@"size: %i", size);
                     
-                    /*
-                     for(NSDictionary* dic in result) {
-                        NSLog(@"title: %@", [dic objectForKey:@"title"]);
-                        NSLog(@"poster_path: %@", [dic objectForKey:@"poster_path"]);
-                        titleLabel.text = [dic objectForKey:@"title"];
-                        
-                        NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [dic objectForKey:@"poster_path"]];
-                        NSURL *url = [NSURL URLWithString:imgUrl];
-                        NSData *posterData = [[NSData alloc] initWithContentsOfURL:url];
-                        UIImage *posterImage = [[UIImage alloc] initWithData:posterData];
-                        posterImgView.image = posterImage;
-                        
-                        break;
-                    }
-                     */
+                    [self.tableView reloadData];
                 }
             }
             
@@ -74,12 +53,10 @@
     }];
     
     [dataTask resume];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -87,13 +64,18 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* SimpleTableIdentifier = @"SimpleTableIdentifier";
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:SimpleTableIdentifier];
+    static NSString* myTableIdentifier = @"myTableIdentifier";
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
     if(cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SimpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myTableIdentifier];
     }
     NSDictionary* dic = [result objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@", [dic objectForKey:@"title"]];
+    NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [dic objectForKey:@"poster_path"]];
+    NSURL *url = [NSURL URLWithString:imgUrl];
+    NSData *posterData = [[NSData alloc] initWithContentsOfURL:url];
+    UIImage *posterImage = [[UIImage alloc] initWithData:posterData];
+    cell.imageView.image = posterImage;
     return cell;
 }
 
