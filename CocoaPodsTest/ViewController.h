@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (copy, nonatomic) NSArray* result;
 
+- (void) parseJsonData: (NSURL*) URL;
+
 @end
 
