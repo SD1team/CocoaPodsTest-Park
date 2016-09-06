@@ -14,22 +14,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HXY-MQ-Mfa">
-                        <rect key="frame" x="0.0" y="1" width="95" height="130"/>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GT0-zn-xve">
                         <rect key="frame" x="103" y="8" width="265" height="113"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HXY-MQ-Mfa">
+                        <rect key="frame" x="0.0" y="0.0" width="95" height="130"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="posterImg" destination="HXY-MQ-Mfa" id="Xxg-XC-ibl"/>
                 <outlet property="titleLabel" destination="GT0-zn-xve" id="ql1-G3-PKv"/>
             </connections>
-            <point key="canvasLocation" x="938.5" y="297"/>
+            <point key="canvasLocation" x="854.5" y="387"/>
         </tableViewCell>
     </objects>
 </document>
