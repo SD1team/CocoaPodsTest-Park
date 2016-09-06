@@ -16,14 +16,22 @@
 
 @implementation ViewController
 
-@synthesize tableView, result;
+@synthesize tableView = _tableView, movies, keys;
+
+static NSString* myTableIdentifier = @"myTableIdentifier";
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     
     NSString* url = @"http://api.themoviedb.org/3/movie/now_playing?api_key=d74a7e1423e9267f335de909f5a25f84";
     [self parseJsonData:[NSURL URLWithString:url]];
+    _tableView.rowHeight = 100;
+    [_tableView reloadData];
+    [super viewWillAppear:animated];
 }
 
 - (void) parseJsonData: (NSURL*) URL {
@@ -34,29 +42,39 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
-            
-            NSError* jsonError;
-            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:kNilOptions error:&jsonError];
-            
-            if(jsonError) {
-                NSLog(@"JSON Error: %@", jsonError.localizedDescription);
-            } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 
-                NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&jsonError];
+                NSArray* jsonData = [responseObject objectForKey:@"results"];
                 
-                if(jsonError) {
-                    NSLog(@"JSON Error: %@", jsonError.localizedDescription);
-                } else {
-            
-                    result = [jsonDic objectForKey:@"results"];
-                    self.tableView.rowHeight = 100;
-                    [self.tableView reloadData];
+                [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:myTableIdentifier];
+                
+                self.movies = [[NSMutableDictionary alloc] init];
+                self.keys = [[NSMutableArray alloc] init];
+                
+                for(NSDictionary* movie in jsonData) {
+                    
+                    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                    NSDate* date = [dateFormatter dateFromString:[movie objectForKey:@"release_date"]];
+                    
+                    if ([self.keys containsObject:date]) {
+                        [[self.movies objectForKey:date] addObject:movie];
+                        continue;
+                    }
+                    
+                    [self.keys addObject:date];
+                    NSMutableArray* moviesOfSection = [[NSMutableArray alloc] init];
+                    [moviesOfSection addObject:movie];
+                    [self.movies setObject:moviesOfSection forKey:date];
                 }
-            }
+                
+                [self.keys sortUsingSelector:@selector(compare:)];
+                
+                [_tableView reloadData];
+            });
         }
     }];
     [dataTask resume];
@@ -67,26 +85,43 @@
     [super didReceiveMemoryWarning];
 }
 
-- (NSInteger)tableView:(UITableView *)_tableView numberOfRowsInSection:(NSInteger)section {
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return [result count];
+    return [self.keys count];
 }
 
-- (UITableViewCell*)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSInteger)tableView:(UITableView *)_tableView numberOfRowsInSection:(NSInteger)section {
     
-    static NSString* myTableIdentifier = @"myTableIdentifier";
-    UITableViewCell* cell = [_tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
+    NSDate* dateKey = self.keys[section];
+    NSMutableArray* moviesOfGroup = self.movies[dateKey];
+    return [moviesOfGroup count];
+}
+
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    return [dateFormatter stringFromDate:self.keys[section]];
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSDate* dateKey = self.keys[indexPath.section];
+    NSMutableArray* moviesOfSection = self.movies[dateKey];
+    NSDictionary* movie = [moviesOfSection objectAtIndex:indexPath.row];
+    
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myTableIdentifier];
     }
     
-    NSDictionary* dic = [result objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", [dic objectForKey:@"title"]];
-    
-    NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [dic objectForKey:@"poster_path"]];
-    [cell.imageView setImageWithURL:[NSURL URLWithString:imgUrl]];
+    cell.textLabel.text = [movie objectForKey:@"title"];
+    NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [movie objectForKey:@"poster_path"]];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
     return cell;
 }
-
 
 @end

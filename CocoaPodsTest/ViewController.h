@@ -11,7 +11,8 @@
 @interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (copy, nonatomic) NSArray* result;
+@property (nonatomic, retain) NSMutableDictionary* movies;
+@property (nonatomic, retain) NSMutableArray* keys;
 
 - (void) parseJsonData: (NSURL*) URL;
 
