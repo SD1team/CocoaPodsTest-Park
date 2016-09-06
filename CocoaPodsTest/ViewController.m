@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
+#import "CustomViewCell.h"
 
 @interface ViewController ()
 
@@ -29,7 +30,6 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     
     NSString* url = @"http://api.themoviedb.org/3/movie/now_playing?api_key=d74a7e1423e9267f335de909f5a25f84";
     [self parseJsonData:[NSURL URLWithString:url]];
-    _tableView.rowHeight = 100;
     [_tableView reloadData];
     [super viewWillAppear:animated];
 }
@@ -54,10 +54,11 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
                 self.movies = [[NSMutableDictionary alloc] init];
                 self.keys = [[NSMutableArray alloc] init];
                 
+                NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+                
                 for(NSDictionary* movie in jsonData) {
                     
-                    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-                    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
                     NSDate* date = [dateFormatter dateFromString:[movie objectForKey:@"release_date"]];
                     
                     if ([self.keys containsObject:date]) {
@@ -70,6 +71,8 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
                     [moviesOfSection addObject:movie];
                     [self.movies setObject:moviesOfSection forKey:date];
                 }
+                
+                dateFormatter = nil;
                 
                 [self.keys sortUsingSelector:@selector(compare:)];
                 
@@ -107,20 +110,29 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     return [dateFormatter stringFromDate:self.keys[section]];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 130;
+}
+
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSDate* dateKey = self.keys[indexPath.section];
     NSMutableArray* moviesOfSection = self.movies[dateKey];
     NSDictionary* movie = [moviesOfSection objectAtIndex:indexPath.row];
     
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
-    if(cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myTableIdentifier];
+    //UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
+    CustomViewCell* cell = (CustomViewCell*) [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
+    if((cell == nil) || (![cell isKindOfClass:CustomViewCell.class])) {
+        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myTableIdentifier];
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"CustomViewCell" owner:self options:nil];
+        cell = (CustomViewCell*) [nib objectAtIndex:0];
     }
     
-    cell.textLabel.text = [movie objectForKey:@"title"];
+    //cell.textLabel.text = [movie objectForKey:@"title"];
+    cell.titleLabel.text = [movie objectForKey:@"title"];
     NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [movie objectForKey:@"poster_path"]];
-    [cell.imageView setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
+    //[cell.imageView setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
+    [cell.posterImg setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
     return cell;
 }
 
