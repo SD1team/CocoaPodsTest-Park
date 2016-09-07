@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8109F9BD1D7E9C0300D78B80 /* CustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8109F9BC1D7E9C0300D78B80 /* CustomViewCell.m */; };
-		8109F9C21D7EAA1300D78B80 /* CustomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8109F9C11D7EAA1300D78B80 /* CustomViewCell.xib */; };
+		8109F9BD1D7E9C0300D78B80 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8109F9BC1D7E9C0300D78B80 /* CustomTableViewCell.m */; };
+		8109F9C21D7EAA1300D78B80 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8109F9C11D7EAA1300D78B80 /* CustomTableViewCell.xib */; };
 		81A461091D794AB800E104EF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A461081D794AB800E104EF /* Default-568h@2x.png */; };
 		81C850BEE27D7E0E73D790A3 /* libPods-CocoaPodsTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A60AC301641BB5C6C2B0BD /* libPods-CocoaPodsTest.a */; };
 		81FC6E161D790E6500225CE7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FC6E151D790E6500225CE7 /* main.m */; };
@@ -43,9 +43,9 @@
 		387DE70CACD66CD34B354BB3 /* Pods-CocoaPodsTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTest/Pods-CocoaPodsTest.debug.xcconfig"; sourceTree = "<group>"; };
 		48A60AC301641BB5C6C2B0BD /* libPods-CocoaPodsTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CocoaPodsTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48DA1721684DAF41A1B4D324 /* Pods-CocoaPodsTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-CocoaPodsTest/Pods-CocoaPodsTest.release.xcconfig"; sourceTree = "<group>"; };
-		8109F9BC1D7E9C0300D78B80 /* CustomViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewCell.m; sourceTree = "<group>"; };
-		8109F9BE1D7E9C2A00D78B80 /* CustomViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomViewCell.h; sourceTree = "<group>"; };
-		8109F9C11D7EAA1300D78B80 /* CustomViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomViewCell.xib; sourceTree = "<group>"; };
+		8109F9BC1D7E9C0300D78B80 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
+		8109F9BE1D7E9C2A00D78B80 /* CustomTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		8109F9C11D7EAA1300D78B80 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		81A461081D794AB800E104EF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		81FC6E111D790E6500225CE7 /* CocoaPodsTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaPodsTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FC6E151D790E6500225CE7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -104,8 +104,8 @@
 		8109F9BB1D7E9BC700D78B80 /* CustomCell */ = {
 			isa = PBXGroup;
 			children = (
-				8109F9BC1D7E9C0300D78B80 /* CustomViewCell.m */,
-				8109F9BE1D7E9C2A00D78B80 /* CustomViewCell.h */,
+				8109F9BC1D7E9C0300D78B80 /* CustomTableViewCell.m */,
+				8109F9BE1D7E9C2A00D78B80 /* CustomTableViewCell.h */,
 			);
 			name = CustomCell;
 			sourceTree = "<group>";
@@ -147,7 +147,7 @@
 				81FC6E221D790E6500225CE7 /* LaunchScreen.storyboard */,
 				81FC6E251D790E6500225CE7 /* Info.plist */,
 				81FC6E141D790E6500225CE7 /* Supporting Files */,
-				8109F9C11D7EAA1300D78B80 /* CustomViewCell.xib */,
+				8109F9C11D7EAA1300D78B80 /* CustomTableViewCell.xib */,
 			);
 			path = CocoaPodsTest;
 			sourceTree = "<group>";
@@ -295,7 +295,7 @@
 				81FC6E241D790E6500225CE7 /* LaunchScreen.storyboard in Resources */,
 				81A461091D794AB800E104EF /* Default-568h@2x.png in Resources */,
 				81FC6E211D790E6500225CE7 /* Assets.xcassets in Resources */,
-				8109F9C21D7EAA1300D78B80 /* CustomViewCell.xib in Resources */,
+				8109F9C21D7EAA1300D78B80 /* CustomTableViewCell.xib in Resources */,
 				E35F8A631D7D407F0081E5A5 /* holder.png in Resources */,
 				81FC6E1F1D790E6500225CE7 /* Main.storyboard in Resources */,
 			);
@@ -371,7 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81FC6E1C1D790E6500225CE7 /* ViewController.m in Sources */,
-				8109F9BD1D7E9C0300D78B80 /* CustomViewCell.m in Sources */,
+				8109F9BD1D7E9C0300D78B80 /* CustomTableViewCell.m in Sources */,
 				81FC6E191D790E6500225CE7 /* AppDelegate.m in Sources */,
 				81FC6E161D790E6500225CE7 /* main.m in Sources */,
 			);

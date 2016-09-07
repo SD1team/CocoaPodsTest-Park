@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CustomViewCell.h"
+#import "CustomTableViewCell.h"
 
-@implementation CustomViewCell
+@implementation CustomTableViewCell
+
 @synthesize posterImg, titleLabel;
 
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

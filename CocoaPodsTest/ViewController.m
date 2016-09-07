@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "CustomViewCell.h"
+#import "CustomTableViewCell.h"
 
 @interface ViewController ()
 
@@ -67,8 +67,7 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
                     }
                     
                     [self.keys addObject:date];
-                    NSMutableArray* moviesOfSection = [[NSMutableArray alloc] init];
-                    [moviesOfSection addObject:movie];
+                    NSMutableArray* moviesOfSection = [NSMutableArray arrayWithObjects:movie, nil];
                     [self.movies setObject:moviesOfSection forKey:date];
                 }
                 
@@ -107,7 +106,9 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    return [dateFormatter stringFromDate:self.keys[section]];
+    NSString* stringDate = [dateFormatter stringFromDate:self.keys[section]];
+    dateFormatter = nil;
+    return stringDate;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,22 +118,30 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSDate* dateKey = self.keys[indexPath.section];
-    NSMutableArray* moviesOfSection = self.movies[dateKey];
-    NSDictionary* movie = [moviesOfSection objectAtIndex:indexPath.row];
+    NSDictionary* movie = [self.movies[dateKey] objectAtIndex:indexPath.row];
     
-    //UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
-    CustomViewCell* cell = (CustomViewCell*) [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
-    if((cell == nil) || (![cell isKindOfClass:CustomViewCell.class])) {
-        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myTableIdentifier];
-        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"CustomViewCell" owner:self options:nil];
-        cell = (CustomViewCell*) [nib objectAtIndex:0];
+    // CustomTableViewCell
+    CustomTableViewCell* cell = (CustomTableViewCell*) [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
+    if((cell == nil) || (![cell isKindOfClass:CustomTableViewCell.class])) {
+        NSArray* nib = [[NSBundle mainBundle] loadNibNamed:@"CustomTableViewCell" owner:self options:nil];
+        cell = (CustomTableViewCell*) [nib objectAtIndex:0];
     }
     
-    //cell.textLabel.text = [movie objectForKey:@"title"];
     cell.titleLabel.text = [movie objectForKey:@"title"];
     NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [movie objectForKey:@"poster_path"]];
-    //[cell.imageView setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
     [cell.posterImg setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
+    
+    /*
+     // UITableViewCell
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
+    if(cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:myTableIdentifier];
+    }
+    cell.textLabel.text = [movie objectForKey:@"title"];
+    NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [movie objectForKey:@"poster_path"]];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
+    */
+    
     return cell;
 }
 

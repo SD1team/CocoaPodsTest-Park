@@ -6,12 +6,12 @@
 //  Copyright © 2016년 ios. All rights reserved.
 //
 
-#ifndef CustomCellView_h
-#define CustomCellView_h
+#ifndef CustomTableViewCell_h
+#define CustomTableViewCell_h
 
 #import <UIKit/UIKit.h>
 
-@interface CustomViewCell : UITableViewCell {
+@interface CustomTableViewCell : UITableViewCell {
     UIImageView* posterImg;
     UILabel* titleLabel;
 }
@@ -22,4 +22,4 @@
 @end
 
 
-#endif /* CustomCellView_h */
+#endif /* CustomTableViewCell_h */
