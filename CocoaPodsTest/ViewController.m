@@ -145,4 +145,22 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     return cell;
 }
 
+-(NSIndexPath*)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
+    NSDate* dateKey = self.keys[indexPath.section];
+    NSDictionary* movie = [self.movies[dateKey] objectAtIndex:indexPath.row];
+    
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:[movie objectForKey:@"title"]
+                                  message:[movie objectForKey:@"overview"]
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    });
+    
+    return indexPath;
+}
+
 @end
