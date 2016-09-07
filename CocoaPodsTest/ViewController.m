@@ -108,6 +108,8 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString* stringDate = [dateFormatter stringFromDate:self.keys[section]];
     dateFormatter = nil;
+    
+    stringDate = [stringDate stringByAppendingString:@" Release"];
     return stringDate;
 }
 
@@ -150,7 +152,7 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     NSDate* dateKey = self.keys[indexPath.section];
     NSDictionary* movie = [self.movies[dateKey] objectAtIndex:indexPath.row];
     
-    UIAlertController * alert=   [UIAlertController
+    UIAlertController * alert = [UIAlertController
                                   alertControllerWithTitle:[movie objectForKey:@"title"]
                                   message:[movie objectForKey:@"overview"]
                                   preferredStyle:UIAlertControllerStyleAlert];

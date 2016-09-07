@@ -104,6 +104,7 @@
 		8109F9BB1D7E9BC700D78B80 /* CustomCell */ = {
 			isa = PBXGroup;
 			children = (
+				8109F9C11D7EAA1300D78B80 /* CustomTableViewCell.xib */,
 				8109F9BC1D7E9C0300D78B80 /* CustomTableViewCell.m */,
 				8109F9BE1D7E9C2A00D78B80 /* CustomTableViewCell.h */,
 			);
@@ -147,7 +148,6 @@
 				81FC6E221D790E6500225CE7 /* LaunchScreen.storyboard */,
 				81FC6E251D790E6500225CE7 /* Info.plist */,
 				81FC6E141D790E6500225CE7 /* Supporting Files */,
-				8109F9C11D7EAA1300D78B80 /* CustomTableViewCell.xib */,
 			);
 			path = CocoaPodsTest;
 			sourceTree = "<group>";
