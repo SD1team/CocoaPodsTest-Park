@@ -27,12 +27,11 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
-    NSString* url = @"http://api.themoviedb.org/3/movie/now_playing?api_key=d74a7e1423e9267f335de909f5a25f84";
 
     MovieData *data = [[MovieData alloc]init];
     [data setDelegate:self];
-    [data getDataUsingUrl:url];
+    [data getNowPlayingMovieListData];
+    [data getMovieGenreData];
     
     [super viewWillAppear:animated];
 }
@@ -107,10 +106,22 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     NSDate* dateKey = self.keys[indexPath.section];
     NSDictionary* movie = [self.movies[dateKey] objectAtIndex:indexPath.row];
     
+    NSString* genreStr = @"GENRE: ";
+    int cnt = 0;
+    for(id gid in [movie objectForKey:@"genre_ids"]) {
+        cnt++;
+        genreStr = [genreStr stringByAppendingFormat:@"%@", [self.genreDic objectForKey:gid]];
+        if (cnt < [[movie objectForKey:@"genre_ids"] count]) {
+            genreStr = [genreStr stringByAppendingString:@", "];
+        }
+    }
+    
+    NSString* alertMsg = [NSString stringWithFormat:@"%@\n\nOVERVIEW\n%@", genreStr, [movie objectForKey:@"overview"]];
+    
     UIAlertController * alert = [UIAlertController
-                                  alertControllerWithTitle:[movie objectForKey:@"title"]
-                                  message:[movie objectForKey:@"overview"]
-                                  preferredStyle:UIAlertControllerStyleAlert];
+                                 alertControllerWithTitle:[movie objectForKey:@"title"]
+                                 message:alertMsg
+                                 preferredStyle:UIAlertControllerStyleAlert];
     
     [self presentViewController:alert animated:YES completion:nil];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -123,9 +134,9 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
 
 #pragma mark - MovieDataDelegate
 
--(void)responseData:(id)responseObject {
+-(void)parseNowPlayingMovieListData:(id)responseData {
     
-    NSArray* jsonData = [responseObject objectForKey:@"results"];
+    NSArray* jsonData = [responseData objectForKey:@"results"];
     
     self.movies = [[NSMutableDictionary alloc] init];
     self.keys = [[NSMutableArray alloc] init];
@@ -150,6 +161,18 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     dateFormatter = nil;
     
     [self.keys sortUsingSelector:@selector(compare:)];
+    
+    [_tableView reloadData];
+}
+
+-(void)parseMovieGenreData:(id)responseData {
+    
+    NSArray* jsonData = [responseData objectForKey:@"genres"];
+    
+    self.genreDic = [[NSMutableDictionary alloc] init];
+    for(NSDictionary* genre in jsonData) {
+        [self.genreDic setObject:[genre objectForKey:@"name"] forKey:[genre objectForKey:@"id"]];
+    }
     
     [_tableView reloadData];
 }

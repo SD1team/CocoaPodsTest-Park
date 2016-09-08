@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *secondTableView;
 @property (nonatomic, retain) NSMutableArray* movies;
+@property (nonatomic, retain) NSMutableDictionary* genreDic;
 
 @end
 

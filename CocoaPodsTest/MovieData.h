@@ -12,8 +12,9 @@
 @protocol MovieDataDelegate<NSObject>
 
 @optional
--(void)resultParseJsonData:(id _Nonnull)resultData;
--(void)responseData:(id _Nonnull)responseObject;
+-(void)parseMovieGenreData:(id _Nonnull)responseData;
+-(void)parseNowPlayingMovieListData:(id _Nonnull)responseData;
+-(void)parsePopularMovieListData:(id _Nonnull)responseData;
 
 @end
 
@@ -21,8 +22,9 @@
 @interface MovieData : NSObject
 
 @property (nonatomic, weak, nullable) id <MovieDataDelegate> delegate;
-
--(void)getDataUsingUrl:(NSString* _Nonnull)stringUrl;
+-(void)getMovieGenreData;
+-(void)getNowPlayingMovieListData;
+-(void)getPopularMovieListData;
 
 @end
 

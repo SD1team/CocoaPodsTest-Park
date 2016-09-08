@@ -19,7 +19,7 @@
 
 @implementation SecondViewController
 
-@synthesize secondTableView = _secondTableView, movies;
+@synthesize secondTableView = _secondTableView, movies, genreDic;
 
 static NSString* myTableIdentifier = @"myTableIdentifier";
 
@@ -30,13 +30,11 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    NSString* url = @"http://api.themoviedb.org/3/movie/popular?api_key=d74a7e1423e9267f335de909f5a25f84";
-    
     MovieData *data = [[MovieData alloc] init];
     [data setDelegate:self];
-    [data getDataUsingUrl:url];
+    [data getPopularMovieListData];
+    [data getMovieGenreData];
     
-    [_secondTableView reloadData];
     [super viewWillAppear:animated];
 }
 
@@ -88,9 +86,22 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     
     NSDictionary* movie = [self.movies objectAtIndex:indexPath.row];
     
+    NSString* genreStr = @"GENRE: ";
+    int cnt = 0;
+    for(id gid in [movie objectForKey:@"genre_ids"]) {
+        cnt++;
+        genreStr = [genreStr stringByAppendingFormat:@"%@", [self.genreDic objectForKey:gid]];
+        if (cnt < [[movie objectForKey:@"genre_ids"] count]) {
+            genreStr = [genreStr stringByAppendingString:@", "];
+        }
+    }
+    
+    NSString* alertMsg = [NSString stringWithFormat:@"RELEASE DATE: %@\n%@\n\nOVERVIEW\n%@",
+                          [movie objectForKey:@"release_date"], genreStr, [movie objectForKey:@"overview"]];
+    
     UIAlertController * alert = [UIAlertController
                                  alertControllerWithTitle:[movie objectForKey:@"title"]
-                                 message:[NSString stringWithFormat:@"[%@ release]\n%@", [movie objectForKey:@"release_date"],[movie objectForKey:@"overview"]]
+                                 message:alertMsg
                                  preferredStyle:UIAlertControllerStyleAlert];
     
     [self presentViewController:alert animated:YES completion:nil];
@@ -104,13 +115,25 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
 
 #pragma mark - MovieDataDelegate
 
--(void)responseData:(id)responseObject {
+-(void)parsePopularMovieListData:(id)responseData {
     
-    NSArray* jsonData = [responseObject objectForKey:@"results"];
+    NSArray* jsonData = [responseData objectForKey:@"results"];
     
     self.movies = [[NSMutableArray alloc] init];
     for(NSDictionary* movie in jsonData) {
         [self.movies addObject:movie];
+    }
+    
+    [_secondTableView reloadData];
+}
+
+-(void)parseMovieGenreData:(id)responseData {
+    
+    NSArray* jsonData = [responseData objectForKey:@"genres"];
+    
+    self.genreDic = [[NSMutableDictionary alloc] init];
+    for(NSDictionary* genre in jsonData) {
+        [self.genreDic setObject:[genre objectForKey:@"name"] forKey:[genre objectForKey:@"id"]];
     }
     
     [_secondTableView reloadData];

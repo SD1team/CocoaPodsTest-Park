@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableDictionary* movies;
 @property (nonatomic, retain) NSMutableArray* keys;
+@property (nonatomic, retain) NSMutableDictionary* genreDic;
 
 @end
 
