@@ -118,15 +118,21 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     
     NSString* alertMsg = [NSString stringWithFormat:@"%@\n\nOVERVIEW\n%@", genreStr, [movie objectForKey:@"overview"]];
     
-    UIAlertController * alert = [UIAlertController
-                                 alertControllerWithTitle:[movie objectForKey:@"title"]
-                                 message:alertMsg
-                                 preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:[movie objectForKey:@"title"]
+                                                    message:alertMsg
+                                                    preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
+                                        style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction * action) {
+                                            [alert dismissViewControllerAnimated:YES completion:nil];
+                                        }];
+    [alert addAction:ok];
     
     [self presentViewController:alert animated:YES completion:nil];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    /*dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [alert dismissViewControllerAnimated:YES completion:nil];
-    });
+    });*/
     
     return indexPath;
 }
