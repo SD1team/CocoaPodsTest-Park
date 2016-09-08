@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "MovieData.h"
-#import <AFNetworking/AFNetworking.h>
 
 @interface MovieData ()
 
@@ -18,17 +17,24 @@
 
 @synthesize delegate;
 
+-(instancetype)init {
+    self = [super init];
+    
+    configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    return self;
+}
+
 -(void)getMovieGenreData {
     
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:
+    request = [NSURLRequest requestWithURL:
                              [NSURL URLWithString:@"http://api.themoviedb.org/3/genre/movie/list?api_key=d74a7e1423e9267f335de909f5a25f84"]];
     
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    dataTask = [manager dataTaskWithRequest:request
+                          completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-            NSLog(@"Error: %@", error);
+            NSLog(@"GetMovieGenreData Error: %@", error);
         } else {
             if (delegate && [delegate respondsToSelector:@selector(parseMovieGenreData:)]) {
                 [delegate parseMovieGenreData:responseObject];
@@ -41,15 +47,13 @@
 
 -(void)getNowPlayingMovieListData {
     
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:
+    request = [NSURLRequest requestWithURL:
                              [NSURL URLWithString:@"http://api.themoviedb.org/3/movie/now_playing?api_key=d74a7e1423e9267f335de909f5a25f84"]];
     
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    dataTask = [manager dataTaskWithRequest:request
+                          completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-            NSLog(@"Error: %@", error);
+            NSLog(@"GetNowPlayingMovieListData Error: %@", error);
         } else {
             if (delegate && [delegate respondsToSelector:@selector(parseNowPlayingMovieListData:)]) {
                 [delegate parseNowPlayingMovieListData:responseObject];
@@ -62,15 +66,13 @@
 
 -(void)getPopularMovieListData {
     
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:
+    request = [NSURLRequest requestWithURL:
                              [NSURL URLWithString:@"http://api.themoviedb.org/3/movie/popular?api_key=d74a7e1423e9267f335de909f5a25f84"]];
     
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    dataTask = [manager dataTaskWithRequest:request
+                          completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-            NSLog(@"Error: %@", error);
+            NSLog(@"GetPopularMovieListData Error: %@", error);
         } else {
             if (delegate && [delegate respondsToSelector:@selector(parsePopularMovieListData:)]) {
                 [delegate parsePopularMovieListData:responseObject];

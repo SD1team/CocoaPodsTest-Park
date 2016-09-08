@@ -9,6 +9,8 @@
 #ifndef MovieData_h
 #define MovieData_h
 
+#import <AFNetworking/AFNetworking.h>
+
 @protocol MovieDataDelegate<NSObject>
 
 @optional
@@ -19,7 +21,12 @@
 @end
 
 
-@interface MovieData : NSObject
+@interface MovieData : NSObject {
+    NSURLSessionConfiguration *configuration;
+    AFURLSessionManager *manager;
+    NSURLRequest *request;
+    NSURLSessionDataTask *dataTask;
+}
 
 @property (nonatomic, weak, nullable) id <MovieDataDelegate> delegate;
 -(void)getMovieGenreData;
