@@ -10,7 +10,7 @@
 #import "SecondViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import <AFNetworking/UIImageView+AFNetworking.h>
-#import "CustomTableViewCellWithRate.h"
+#import "CustomTableViewCellWithPopularity.h"
 #import "CustomTableViewCell.h"
 
 @interface SecondViewController()
@@ -30,7 +30,7 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
 
 - (void)viewWillAppear:(BOOL)animated {
     
-    NSString* url = @"http://api.themoviedb.org/3/movie/top_rated?api_key=d74a7e1423e9267f335de909f5a25f84";
+    NSString* url = @"http://api.themoviedb.org/3/movie/popular?api_key=d74a7e1423e9267f335de909f5a25f84";
     
     MovieData *data = [[MovieData alloc] init];
     [data setDelegate:self];
@@ -64,19 +64,19 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     
     NSDictionary* movie = [self.movies objectAtIndex:indexPath.row];
     
-    CustomTableViewCellWithRate *cell = (CustomTableViewCellWithRate *) [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
+    CustomTableViewCellWithPopularity *cell = (CustomTableViewCellWithPopularity *) [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
     
-    if((cell == nil) || (![cell isKindOfClass:CustomTableViewCellWithRate.class])) {
+    if((cell == nil) || (![cell isKindOfClass:CustomTableViewCellWithPopularity.class])) {
         
         NSString *nibName;
-        if (indexPath.row < 3) nibName = @"CustomTableViewCellWithTopRate";
-        else nibName = @"CustomTableViewCellWithRate";
+        if (indexPath.row < 3) nibName = @"CustomTableViewCellWithTopPopularity";
+        else nibName = @"CustomTableViewCellWithPopularity";
         
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
-        cell = (CustomTableViewCellWithRate *) [nib objectAtIndex:0];
+        cell = (CustomTableViewCellWithPopularity *) [nib objectAtIndex:0];
     }
     
-    cell.rateLabel.text = [NSString stringWithFormat:@"Rank %ld", indexPath.row + 1];
+    cell.rateLabel.text = [NSString stringWithFormat:@"Top %ld", indexPath.row + 1];
     cell.titleLabel.text = [movie objectForKey:@"title"];
     NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [movie objectForKey:@"poster_path"]];
     [cell.posterImg setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];

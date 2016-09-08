@@ -62,10 +62,10 @@
             </objects>
             <point key="canvasLocation" x="824" y="365"/>
         </scene>
-        <!--Top Rated-->
+        <!--Popular-->
         <scene sceneID="Lc6-oD-vxd">
             <objects>
-                <viewController id="FmF-uO-Q08" userLabel="Top Rated" customClass="SecondViewController" sceneMemberID="viewController">
+                <viewController id="FmF-uO-Q08" customClass="SecondViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oeq-Xs-WL9"/>
                         <viewControllerLayoutGuide type="bottom" id="PKr-R5-7e2"/>
@@ -91,7 +91,7 @@
                             <constraint firstItem="vhn-JB-DCb" firstAttribute="top" secondItem="oeq-Xs-WL9" secondAttribute="bottom" id="kZg-XT-lWH"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Top Rated" image="star.png" id="E4n-C3-blA"/>
+                    <tabBarItem key="tabBarItem" title="Popular" image="star.png" id="E4n-C3-blA"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="secondTableView" destination="vhn-JB-DCb" id="rsd-Ql-dC8"/>

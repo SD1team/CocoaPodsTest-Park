@@ -29,11 +29,11 @@
         if (error) {
             NSLog(@"Error: %@", error);
         } else {
-            //dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 if (delegate && [delegate respondsToSelector:@selector(responseData:)]) {
                     [delegate responseData:responseObject];
                 }
-            //});
+            });
         }
     }];
     

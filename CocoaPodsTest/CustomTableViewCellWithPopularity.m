@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CustomTableViewCellWithRate.h"
+#import "CustomTableViewCellWithPopularity.h"
 
-@implementation CustomTableViewCellWithRate
+@implementation CustomTableViewCellWithPopularity
 
 @synthesize posterImg, rateLabel, titleLabel;
 

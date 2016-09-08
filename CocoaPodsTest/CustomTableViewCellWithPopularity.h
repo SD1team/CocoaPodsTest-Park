@@ -6,12 +6,12 @@
 //  Copyright © 2016년 ios. All rights reserved.
 //
 
-#ifndef CustomTableViewCellWithRate_h
-#define CustomTableViewCellWithRate_h
+#ifndef CustomTableViewCellWithPopularity_h
+#define CustomTableViewCellWithPopularity_h
 
 #import <UIKit/UIKit.h>
 
-@interface CustomTableViewCellWithRate : UITableViewCell {
+@interface CustomTableViewCellWithPopularity : UITableViewCell {
     UIImageView* posterImg;
     UILabel* rateLabel;
     UILabel* titleLabel;
@@ -24,4 +24,4 @@
 @end
 
 
-#endif /* CustomTableViewCellWithRate_h */
+#endif /* CustomTableViewCellWithPopularity_h */
