@@ -34,7 +34,7 @@
                             <constraint firstItem="3yQ-zb-5Hk" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" constant="-69" id="x7S-VJ-dQj"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Now Playing" image="Default.png" id="fYE-sJ-SoU"/>
+                    <tabBarItem key="tabBarItem" title="Now Playing" image="movie.png" id="fYE-sJ-SoU"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="3yQ-zb-5Hk" id="g2w-9B-guR"/>
@@ -91,7 +91,7 @@
                             <constraint firstItem="vhn-JB-DCb" firstAttribute="top" secondItem="oeq-Xs-WL9" secondAttribute="bottom" id="kZg-XT-lWH"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Top Rated" image="Default.png" id="E4n-C3-blA"/>
+                    <tabBarItem key="tabBarItem" title="Top Rated" image="star.png" id="E4n-C3-blA"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="secondTableView" destination="vhn-JB-DCb" id="rsd-Ql-dC8"/>
@@ -103,6 +103,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Default.png" width="16" height="16"/>
+        <image name="movie.png" width="24" height="24"/>
+        <image name="star.png" width="24" height="24"/>
     </resources>
 </document>

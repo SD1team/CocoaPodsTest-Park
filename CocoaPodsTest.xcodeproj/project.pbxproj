@@ -13,6 +13,8 @@
 		81BDA86C1D810408004F9E5F /* CustomTableViewCellWithRate.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81BDA86B1D810408004F9E5F /* CustomTableViewCellWithRate.xib */; };
 		81BDA86F1D81043D004F9E5F /* CustomTableViewCellWithRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA86E1D81043D004F9E5F /* CustomTableViewCellWithRate.m */; };
 		81BDA8711D81289C004F9E5F /* CustomTableViewCellWithTopRate.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81BDA8701D81289C004F9E5F /* CustomTableViewCellWithTopRate.xib */; };
+		81BDA8751D813A08004F9E5F /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 81BDA8731D813A08004F9E5F /* movie.png */; };
+		81BDA8761D813A08004F9E5F /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 81BDA8741D813A08004F9E5F /* star.png */; };
 		81C850BEE27D7E0E73D790A3 /* libPods-CocoaPodsTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A60AC301641BB5C6C2B0BD /* libPods-CocoaPodsTest.a */; };
 		81E0F82E1D7FEF3D009AD3B2 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E0F82D1D7FEF3D009AD3B2 /* SecondViewController.m */; };
 		81E0F8331D7FF2CD009AD3B2 /* MovieData.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E0F8321D7FF2CC009AD3B2 /* MovieData.m */; };
@@ -56,6 +58,8 @@
 		81BDA86D1D81042A004F9E5F /* CustomTableViewCellWithRate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCellWithRate.h; sourceTree = "<group>"; };
 		81BDA86E1D81043D004F9E5F /* CustomTableViewCellWithRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCellWithRate.m; sourceTree = "<group>"; };
 		81BDA8701D81289C004F9E5F /* CustomTableViewCellWithTopRate.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCellWithTopRate.xib; sourceTree = "<group>"; };
+		81BDA8731D813A08004F9E5F /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie.png; sourceTree = "<group>"; };
+		81BDA8741D813A08004F9E5F /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		81E0F82D1D7FEF3D009AD3B2 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		81E0F82F1D7FEF56009AD3B2 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		81E0F8311D7FF2B1009AD3B2 /* MovieData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieData.h; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 			children = (
 				81A461081D794AB800E104EF /* Default-568h@2x.png */,
 				E35F8A621D7D407F0081E5A5 /* holder.png */,
+				81BDA8731D813A08004F9E5F /* movie.png */,
+				81BDA8741D813A08004F9E5F /* star.png */,
 				81FC6E131D790E6500225CE7 /* CocoaPodsTest */,
 				81FC6E2D1D790E6500225CE7 /* CocoaPodsTestTests */,
 				81FC6E381D790E6600225CE7 /* CocoaPodsTestUITests */,
@@ -330,7 +336,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				81FC6E241D790E6500225CE7 /* LaunchScreen.storyboard in Resources */,
+				81BDA8761D813A08004F9E5F /* star.png in Resources */,
 				81A461091D794AB800E104EF /* Default-568h@2x.png in Resources */,
+				81BDA8751D813A08004F9E5F /* movie.png in Resources */,
 				81FC6E211D790E6500225CE7 /* Assets.xcassets in Resources */,
 				8109F9C21D7EAA1300D78B80 /* CustomTableViewCell.xib in Resources */,
 				81BDA8711D81289C004F9E5F /* CustomTableViewCellWithTopRate.xib in Resources */,

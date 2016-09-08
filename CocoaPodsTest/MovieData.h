@@ -20,12 +20,7 @@
 
 @interface MovieData : NSObject
 
-@property (nonatomic, strong) NSMutableDictionary* _Nonnull movies;
-@property (nonatomic, strong) NSMutableArray* _Nonnull keys;
-
 @property (nonatomic, weak, nullable) id <MovieDataDelegate> delegate;
-
-- (void) parseJsonData: (NSURL*) URL;
 
 -(void)getDataUsingUrl:(NSString* _Nonnull)stringUrl;
 
