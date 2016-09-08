@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieData.h"
 
-@interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, MovieDataDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableDictionary* movies;
 @property (nonatomic, retain) NSMutableArray* keys;
-
-- (void) parseJsonData: (NSURL*) URL;
 
 @end
 

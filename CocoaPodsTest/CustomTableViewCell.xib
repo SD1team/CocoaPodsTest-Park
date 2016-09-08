@@ -29,7 +29,7 @@
                 <outlet property="posterImg" destination="HXY-MQ-Mfa" id="Xxg-XC-ibl"/>
                 <outlet property="titleLabel" destination="GT0-zn-xve" id="ql1-G3-PKv"/>
             </connections>
-            <point key="canvasLocation" x="457.5" y="563"/>
+            <point key="canvasLocation" x="125.5" y="588"/>
         </tableViewCell>
     </objects>
 </document>

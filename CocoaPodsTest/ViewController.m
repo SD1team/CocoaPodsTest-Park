@@ -29,57 +29,12 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
 - (void)viewWillAppear:(BOOL)animated {
     
     NSString* url = @"http://api.themoviedb.org/3/movie/now_playing?api_key=d74a7e1423e9267f335de909f5a25f84";
-    [self parseJsonData:[NSURL URLWithString:url]];
-    [_tableView reloadData];
-    [super viewWillAppear:animated];
-}
 
-- (void) parseJsonData: (NSURL*) URL {
+    MovieData *data = [[MovieData alloc]init];
+    [data setDelegate:self];
+    [data getDataUsingUrl:url];
     
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                NSArray* jsonData = [responseObject objectForKey:@"results"];
-                
-                [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:myTableIdentifier];
-                
-                self.movies = [[NSMutableDictionary alloc] init];
-                self.keys = [[NSMutableArray alloc] init];
-                
-                NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-                
-                for(NSDictionary* movie in jsonData) {
-                    
-                    NSDate* date = [dateFormatter dateFromString:[movie objectForKey:@"release_date"]];
-                    
-                    if ([self.keys containsObject:date]) {
-                        [[self.movies objectForKey:date] addObject:movie];
-                        continue;
-                    }
-                    
-                    [self.keys addObject:date];
-                    NSMutableArray* moviesOfSection = [NSMutableArray arrayWithObjects:movie, nil];
-                    [self.movies setObject:moviesOfSection forKey:date];
-                }
-                
-                dateFormatter = nil;
-                
-                [self.keys sortUsingSelector:@selector(compare:)];
-                
-                [_tableView reloadData];
-            });
-        }
-    }];
-    [dataTask resume];
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -163,6 +118,40 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     });
     
     return indexPath;
+}
+
+
+#pragma mark - MovieDataDelegate
+
+-(void)responseData:(id)responseObject {
+    
+    NSArray* jsonData = [responseObject objectForKey:@"results"];
+    
+    self.movies = [[NSMutableDictionary alloc] init];
+    self.keys = [[NSMutableArray alloc] init];
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    for(NSDictionary* movie in jsonData) {
+        
+        NSDate* date = [dateFormatter dateFromString:[movie objectForKey:@"release_date"]];
+        
+        if ([self.keys containsObject:date]) {
+            [[self.movies objectForKey:date] addObject:movie];
+            continue;
+        }
+        
+        [self.keys addObject:date];
+        NSMutableArray* moviesOfSection = [NSMutableArray arrayWithObjects:movie, nil];
+        [self.movies setObject:moviesOfSection forKey:date];
+    }
+    
+    dateFormatter = nil;
+    
+    [self.keys sortUsingSelector:@selector(compare:)];
+    
+    [_tableView reloadData];
 }
 
 @end
