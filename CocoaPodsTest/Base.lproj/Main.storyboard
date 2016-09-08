@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3yQ-zb-5Hk">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3yQ-zb-5Hk">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.61568627450000002" green="0.61568627450000002" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -31,6 +31,7 @@
                         <constraints>
                             <constraint firstItem="3yQ-zb-5Hk" firstAttribute="top" secondItem="bba-UC-3j7" secondAttribute="bottom" id="4Ku-qB-zu4"/>
                             <constraint firstItem="3yQ-zb-5Hk" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="93s-9d-R79"/>
+                            <constraint firstItem="3yQ-zb-5Hk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FIg-xB-BeX"/>
                             <constraint firstItem="3yQ-zb-5Hk" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" constant="-69" id="x7S-VJ-dQj"/>
                         </constraints>
                     </view>
@@ -74,8 +75,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vhn-JB-DCb">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vhn-JB-DCb">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -86,6 +87,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="vhn-JB-DCb" firstAttribute="centerX" secondItem="ShN-Fu-vaF" secondAttribute="centerX" id="AJH-P4-fz3"/>
                             <constraint firstItem="vhn-JB-DCb" firstAttribute="height" secondItem="ShN-Fu-vaF" secondAttribute="height" constant="-69" id="cwb-Eo-cLI"/>
                             <constraint firstItem="vhn-JB-DCb" firstAttribute="width" secondItem="ShN-Fu-vaF" secondAttribute="width" id="iR9-W7-rRU"/>
                             <constraint firstItem="vhn-JB-DCb" firstAttribute="top" secondItem="oeq-Xs-WL9" secondAttribute="bottom" id="kZg-XT-lWH"/>
