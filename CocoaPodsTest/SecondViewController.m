@@ -22,18 +22,21 @@
 @synthesize secondTableView = _secondTableView, movies, genreDic;
 
 static NSString* myTableIdentifier = @"myTableIdentifier";
+MovieData *data2;
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    data2 = [[MovieData alloc] init];
+    [data2 setDelegate:self];
+    [data2 getPopularMovieListData];
+    [data2 getMovieGenreData];
+    
+    [self initRefreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
-    MovieData *data = [[MovieData alloc] init];
-    [data setDelegate:self];
-    [data getPopularMovieListData];
-    [data getMovieGenreData];
     
     [super viewWillAppear:animated];
 }
@@ -41,6 +44,25 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - Pull to Refresh
+
+- (void)initRefreshControl {
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+    [_secondTableView addSubview:refreshControl];
+}
+
+- (void)handleRefresh:(UIRefreshControl *)sender {
+    [self performSelector:@selector(endRefresh) withObject:nil afterDelay :1.0f];
+}
+
+- (void) endRefresh{
+    [refreshControl endRefreshing];
+    [data2 getPopularMovieListData];
+    [_secondTableView reloadData];
 }
 
 
@@ -52,8 +74,8 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row < 3) {
-        return 130;
+    if(indexPath.row < 1) {
+        return 425;
     }
     return 100;
 }
@@ -67,7 +89,7 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     if((cell == nil) || (![cell isKindOfClass:CustomTableViewCellWithPopularity.class])) {
         
         NSString *nibName;
-        if (indexPath.row < 3) nibName = @"CustomTableViewCellWithTopPopularity";
+        if (indexPath.row < 1) nibName = @"CustomTableViewCellWithTopPopularity";
         else nibName = @"CustomTableViewCellWithPopularity";
         
         NSArray* nib = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
@@ -86,7 +108,7 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     
     NSDictionary* movie = [self.movies objectAtIndex:indexPath.row];
     
-    NSString* genreStr = @"GENRE: ";
+    NSString* genreStr = @"\n";
     int cnt = 0;
     for(id gid in [movie objectForKey:@"genre_ids"]) {
         cnt++;
@@ -95,19 +117,20 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
             genreStr = [genreStr stringByAppendingString:@", "];
         }
     }
+    if (cnt == 0) genreStr = [genreStr stringByAppendingString:@"No Genre"];
     
-    NSString* alertMsg = [NSString stringWithFormat:@"RELEASE DATE: %@\n%@\n\nOVERVIEW\n%@",
+    NSString* alertMsg = [NSString stringWithFormat:@"%@\n%@\n\nOVERVIEW\n%@",
                           [movie objectForKey:@"release_date"], genreStr, [movie objectForKey:@"overview"]];
     
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:[movie objectForKey:@"title"]
-                                                    message:alertMsg
-                                                    preferredStyle:UIAlertControllerStyleAlert];
+                                                                    message:alertMsg
+                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
-                                        style:UIAlertActionStyleDefault
-                                        handler:^(UIAlertAction * action) {
-                                            [alert dismissViewControllerAnimated:YES completion:nil];
-                                        }];
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"close"
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   [alert dismissViewControllerAnimated:YES completion:nil];
+                                               }];
     [alert addAction:ok];
     
     [self presentViewController:alert animated:YES completion:nil];

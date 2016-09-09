@@ -47,6 +47,13 @@
 
 -(void)getNowPlayingMovieListData {
     
+    /*NSString* url;
+    NSInteger time = CFAbsoluteTimeGetCurrent();
+    if (time%2 == 0) {
+        url = @"http://api.themoviedb.org/3/movie/now_playing?api_key=d74a7e1423e9267f335de909f5a25f84";
+    }else {
+        url = @"http://api.themoviedb.org/3/movie/upcoming?api_key=d74a7e1423e9267f335de909f5a25f84";
+    }*/
     request = [NSURLRequest requestWithURL:
                              [NSURL URLWithString:@"http://api.themoviedb.org/3/movie/now_playing?api_key=d74a7e1423e9267f335de909f5a25f84"]];
     

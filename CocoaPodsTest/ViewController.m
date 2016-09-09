@@ -20,25 +20,47 @@
 @synthesize tableView = _tableView, movies, keys;
 
 static NSString* myTableIdentifier = @"myTableIdentifier";
+MovieData *data;
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-
-    MovieData *data = [[MovieData alloc]init];
+    
+    data = [[MovieData alloc]init];
     [data setDelegate:self];
     [data getNowPlayingMovieListData];
     [data getMovieGenreData];
     
+    [self initRefreshControl];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
     [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - Pull to Refresh
+
+- (void)initRefreshControl {
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
+    [_tableView addSubview:refreshControl];
+}
+
+- (void)handleRefresh:(UIRefreshControl *)sender {
+    [self performSelector:@selector(endRefresh) withObject:nil afterDelay :1.0f];
+}
+
+- (void) endRefresh{
+    [refreshControl endRefreshing];
+    [data getNowPlayingMovieListData];
+    [_tableView reloadData];
 }
 
 
@@ -106,7 +128,7 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     NSDate* dateKey = self.keys[indexPath.section];
     NSDictionary* movie = [self.movies[dateKey] objectAtIndex:indexPath.row];
     
-    NSString* genreStr = @"GENRE: ";
+    NSString* genreStr = @"\n";
     int cnt = 0;
     for(id gid in [movie objectForKey:@"genre_ids"]) {
         cnt++;
@@ -115,18 +137,19 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
             genreStr = [genreStr stringByAppendingString:@", "];
         }
     }
+    if (cnt == 0) genreStr = [genreStr stringByAppendingString:@"No Genre"];
     
     NSString* alertMsg = [NSString stringWithFormat:@"%@\n\nOVERVIEW\n%@", genreStr, [movie objectForKey:@"overview"]];
     
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:[movie objectForKey:@"title"]
-                                                    message:alertMsg
-                                                    preferredStyle:UIAlertControllerStyleAlert];
+                                                                    message:alertMsg
+                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
-                                        style:UIAlertActionStyleDefault
-                                        handler:^(UIAlertAction * action) {
-                                            [alert dismissViewControllerAnimated:YES completion:nil];
-                                        }];
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"close"
+                                                 style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   [alert dismissViewControllerAnimated:YES completion:nil];
+                                               }];
     [alert addAction:ok];
     
     [self presentViewController:alert animated:YES completion:nil];
@@ -183,4 +206,13 @@ static NSString* myTableIdentifier = @"myTableIdentifier";
     [_tableView reloadData];
 }
 
+
 @end
+
+
+
+
+
+
+
+

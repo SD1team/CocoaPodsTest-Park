@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "20EC712451A7EF462DD239A764BE5C63035628CF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "20EC712451A7EF462DD239A764BE5C63035628CF" : 0,
+    "5D5EEBCA6E004D57C8DA24FBD7A332B7482EC6A3" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "DE62FBC8-030B-479F-8A7E-AE7AE9EF4025",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "20EC712451A7EF462DD239A764BE5C63035628CF" : "CocoaPodsTest\/",
+    "5D5EEBCA6E004D57C8DA24FBD7A332B7482EC6A3" : "daeun\/afnetworking-daeun\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CocoaPodsTest",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CocoaPodsTest.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SD1team\/CocoaPodsTest-Park.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "20EC712451A7EF462DD239A764BE5C63035628CF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SD1team\/afnetworking-daeun.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5D5EEBCA6E004D57C8DA24FBD7A332B7482EC6A3"
+    }
+  ]
+}

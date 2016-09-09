@@ -12,7 +12,9 @@
 #import <UIKit/UIKit.h>
 #import "MovieData.h"
 
-@interface SecondViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, MovieDataDelegate>
+@interface SecondViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, MovieDataDelegate> {
+    UIRefreshControl *refreshControl;
+}
 
 @property (strong, nonatomic) IBOutlet UITableView *secondTableView;
 @property (nonatomic, retain) NSMutableArray* movies;

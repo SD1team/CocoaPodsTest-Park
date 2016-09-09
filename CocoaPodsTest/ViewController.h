@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MovieData.h"
 
-@interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, MovieDataDelegate>
+@interface ViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, MovieDataDelegate> {
+    UIRefreshControl *refreshControl;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) NSMutableDictionary* movies;

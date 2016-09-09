@@ -35,7 +35,13 @@
                             <constraint firstItem="3yQ-zb-5Hk" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" constant="-69" id="x7S-VJ-dQj"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Now Playing" image="movie.png" id="fYE-sJ-SoU"/>
+                    <tabBarItem key="tabBarItem" title="Now Playing" image="movie.png" id="fYE-sJ-SoU">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="0.19607843137254902" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="3yQ-zb-5Hk" id="g2w-9B-guR"/>
@@ -93,7 +99,13 @@
                             <constraint firstItem="vhn-JB-DCb" firstAttribute="top" secondItem="oeq-Xs-WL9" secondAttribute="bottom" id="kZg-XT-lWH"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Popular" image="star.png" id="E4n-C3-blA"/>
+                    <tabBarItem key="tabBarItem" title="Popular" image="star.png" id="E4n-C3-blA">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="0.19607843137254902" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="secondTableView" destination="vhn-JB-DCb" id="rsd-Ql-dC8"/>
@@ -108,4 +120,5 @@
         <image name="movie.png" width="24" height="24"/>
         <image name="star.png" width="24" height="24"/>
     </resources>
+    <color key="tintColor" red="0.98665183782577515" green="0.26581421494483948" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
