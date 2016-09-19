@@ -155,12 +155,12 @@ MovieData *data;
                                                                     message:alertMsg
                                                              preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"close"
+    UIAlertAction* closeBtn = [UIAlertAction actionWithTitle:@"close"
                                                  style:UIAlertActionStyleDefault
                                                handler:^(UIAlertAction * action) {
                                                    [alert dismissViewControllerAnimated:YES completion:nil];
                                                }];
-    [alert addAction:ok];
+    [alert addAction:closeBtn];
     
     [self presentViewController:alert animated:YES completion:nil];
     /*dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -196,20 +196,25 @@ MovieData *data;
     
     UITableViewRowAction *likeAction;
     if ([likeObj boolValue]) {
-        likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"don't like" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
+                                                        title:@"don't like"
+                                                      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
             [movie setValue:[NSNumber numberWithBool:NO] forKey:@"like"];
             [_tableView reloadData];
         }];
     } else {
-        likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Like" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
+                                                        title:@"Like"
+                                                      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
             [movie setValue:[NSNumber numberWithBool:YES] forKey:@"like"];
             [_tableView reloadData];
         }];
     }
     likeAction.backgroundColor = [UIColor grayColor];
     
-    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
+                                                                            title:@"Delete"
+                                                                          handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
         if ([self.movies[dateKey] count] == 1) {
             [self.movies removeObjectForKey:dateKey];
             [self.keys removeObjectAtIndex:indexPath.section];
@@ -217,7 +222,6 @@ MovieData *data;
             [self.movies[dateKey] removeObjectAtIndex:indexPath.row];
         }
         [_tableView reloadData];
-        
     }];
     deleteAction.backgroundColor = [UIColor redColor];
     
