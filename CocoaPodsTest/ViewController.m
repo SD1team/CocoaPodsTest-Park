@@ -30,6 +30,7 @@ MovieData *data;
     [data setDelegate:self];
     [data getNowPlayingMovieListData];
     [data getMovieGenreData];
+    _tableView.allowsMultipleSelectionDuringEditing = NO;
     
     [self initRefreshControl];
 }
@@ -109,6 +110,15 @@ MovieData *data;
     NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [movie objectForKey:@"poster_path"]];
     [cell.posterImg setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
     
+    NSNumber *likeObj = [movie objectForKey:@"like"];
+    if ([likeObj boolValue]) {
+        [cell.likeImg setHidden:false];
+        [cell.likeBackgroundImg setHidden:false];
+    } else {
+        [cell.likeImg setHidden:true];
+        [cell.likeBackgroundImg setHidden:true];
+    }
+    
     /*
      // UITableViewCell
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:myTableIdentifier];
@@ -160,6 +170,60 @@ MovieData *data;
     return indexPath;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSDate* dateKey = self.keys[indexPath.section];
+        if ([self.movies[dateKey] count] == 1) {
+            [self.movies removeObjectForKey:dateKey];
+            [self.keys removeObjectAtIndex:indexPath.section];
+        } else {
+            [self.movies[dateKey] removeObjectAtIndex:indexPath.row];
+        }
+        [_tableView reloadData];
+    }
+}
+
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSDate* dateKey = self.keys[indexPath.section];
+    NSDictionary* movie = [self.movies[dateKey] objectAtIndex:indexPath.row];
+    NSNumber *likeObj = [movie objectForKey:@"like"];
+    
+    UITableViewRowAction *likeAction;
+    if ([likeObj boolValue]) {
+        likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"don't like" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [movie setValue:[NSNumber numberWithBool:NO] forKey:@"like"];
+            [_tableView reloadData];
+        }];
+    } else {
+        likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Like" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [movie setValue:[NSNumber numberWithBool:YES] forKey:@"like"];
+            [_tableView reloadData];
+        }];
+    }
+    likeAction.backgroundColor = [UIColor grayColor];
+    
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        
+        if ([self.movies[dateKey] count] == 1) {
+            [self.movies removeObjectForKey:dateKey];
+            [self.keys removeObjectAtIndex:indexPath.section];
+        } else {
+            [self.movies[dateKey] removeObjectAtIndex:indexPath.row];
+        }
+        [_tableView reloadData];
+        
+    }];
+    deleteAction.backgroundColor = [UIColor redColor];
+    
+    return @[deleteAction, likeAction];
+}
+
 
 #pragma mark - MovieDataDelegate
 
@@ -173,7 +237,10 @@ MovieData *data;
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-    for(NSDictionary* movie in jsonData) {
+    for(NSDictionary* m in jsonData) {
+        
+        NSMutableDictionary* movie = [m mutableCopy];
+        [movie setObject:[NSNumber numberWithBool:NO] forKey:@"like"];
         
         NSDate* date = [dateFormatter dateFromString:[movie objectForKey:@"release_date"]];
         
@@ -205,7 +272,6 @@ MovieData *data;
     
     [_tableView reloadData];
 }
-
 
 @end
 

@@ -14,10 +14,14 @@
 @interface CustomTableViewCell : UITableViewCell {
     UIImageView* posterImg;
     UILabel* titleLabel;
+    UIImageView* likeImg;
+    UIImageView* likeBackgroundImg;
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView* posterImg;
 @property (nonatomic, retain) IBOutlet UILabel* titleLabel;
+@property (nonatomic, retain) IBOutlet UIImageView* likeImg;
+@property (nonatomic, retain) IBOutlet UIImageView* likeBackgroundImg;
 
 @end
 

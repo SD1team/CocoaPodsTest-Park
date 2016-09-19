@@ -101,6 +101,15 @@ MovieData *data2;
     NSString* imgUrl = [NSString stringWithFormat:@"http://image.tmdb.org/t/p/w500%@", [movie objectForKey:@"poster_path"]];
     [cell.posterImg setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"holder"]];
     
+    NSNumber *likeObj = [movie objectForKey:@"like"];
+    if ([likeObj boolValue]) {
+        [cell.likeImg setHidden:false];
+        [cell.likeBackgroundImg setHidden:false];
+    } else {
+        [cell.likeImg setHidden:true];
+        [cell.likeBackgroundImg setHidden:true];
+    }
+    
     return cell;
 }
 
@@ -141,6 +150,41 @@ MovieData *data2;
     return indexPath;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSDictionary* movie = [self.movies objectAtIndex:indexPath.row];
+    NSNumber *likeObj = [movie objectForKey:@"like"];
+    
+    UITableViewRowAction *likeAction;
+    if ([likeObj boolValue]) {
+        likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"don't like" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [movie setValue:[NSNumber numberWithBool:NO] forKey:@"like"];
+            [_secondTableView reloadData];
+        }];
+        
+    } else {
+        likeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Like" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            [movie setValue:[NSNumber numberWithBool:YES] forKey:@"like"];
+            [_secondTableView reloadData];
+        }];
+    }
+    likeAction.backgroundColor = [UIColor grayColor];
+    
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Delete"  handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+        
+        [self.movies removeObjectAtIndex:indexPath.row];
+        [_secondTableView reloadData];
+        
+    }];
+    deleteAction.backgroundColor = [UIColor redColor];
+    
+    return @[deleteAction, likeAction];
+}
+
 
 #pragma mark - MovieDataDelegate
 
@@ -149,7 +193,11 @@ MovieData *data2;
     NSArray* jsonData = [responseData objectForKey:@"results"];
     
     self.movies = [[NSMutableArray alloc] init];
-    for(NSDictionary* movie in jsonData) {
+    for(NSDictionary* m in jsonData) {
+        
+        NSMutableDictionary* movie = [m mutableCopy];
+        [movie setObject:[NSNumber numberWithBool:NO] forKey:@"like"];
+        
         [self.movies addObject:movie];
     }
     

@@ -20,7 +20,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wfj-jy-HyS">
                         <rect key="frame" x="81" y="39" width="286" height="52"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBW-lo-9Rg">
@@ -29,9 +29,17 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black.png" translatesAutoresizingMaskIntoConstraints="NO" id="eFk-dV-V2K">
+                        <rect key="frame" x="0.0" y="0.0" width="73" height="100"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart.png" translatesAutoresizingMaskIntoConstraints="NO" id="Rqz-WO-L9n">
+                        <rect key="frame" x="16" y="30" width="40" height="40"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="likeBackgroundImg" destination="eFk-dV-V2K" id="Jow-Ue-WX5"/>
+                <outlet property="likeImg" destination="Rqz-WO-L9n" id="ony-eU-YWa"/>
                 <outlet property="posterImg" destination="Qf6-29-otV" id="TCS-KC-erm"/>
                 <outlet property="rateLabel" destination="SBW-lo-9Rg" id="YXN-ZP-0m2"/>
                 <outlet property="titleLabel" destination="Wfj-jy-HyS" id="W8p-3J-i1Z"/>
@@ -39,4 +47,8 @@
             <point key="canvasLocation" x="324.5" y="224"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="black.png" width="66" height="100"/>
+        <image name="heart.png" width="48" height="48"/>
+    </resources>
 </document>

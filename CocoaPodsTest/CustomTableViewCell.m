@@ -11,7 +11,7 @@
 
 @implementation CustomTableViewCell
 
-@synthesize posterImg, titleLabel;
+@synthesize posterImg, titleLabel, likeImg, likeBackgroundImg;
 
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {

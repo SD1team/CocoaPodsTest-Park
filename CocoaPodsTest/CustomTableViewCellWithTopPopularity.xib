@@ -26,12 +26,20 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sgb-Dd-Scj">
                         <rect key="frame" x="8" y="355" width="359" height="61"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="black.png" translatesAutoresizingMaskIntoConstraints="NO" id="aKV-zK-PCa">
+                        <rect key="frame" x="76" y="44" width="60" height="60"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart.png" translatesAutoresizingMaskIntoConstraints="NO" id="yhN-ov-Smi">
+                        <rect key="frame" x="82" y="50" width="48" height="48"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="likeBackgroundImg" destination="aKV-zK-PCa" id="hDB-N2-LKs"/>
+                <outlet property="likeImg" destination="yhN-ov-Smi" id="86Z-X7-lO7"/>
                 <outlet property="posterImg" destination="bkY-Jt-JOF" id="ykV-O1-3JO"/>
                 <outlet property="rateLabel" destination="tLF-Da-ZTP" id="asZ-Gg-o4j"/>
                 <outlet property="titleLabel" destination="Sgb-Dd-Scj" id="Wtg-gj-Lak"/>
@@ -39,4 +47,8 @@
             <point key="canvasLocation" x="241.5" y="186.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="black.png" width="66" height="100"/>
+        <image name="heart.png" width="48" height="48"/>
+    </resources>
 </document>

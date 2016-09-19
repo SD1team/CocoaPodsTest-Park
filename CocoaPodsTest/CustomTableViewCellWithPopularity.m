@@ -11,7 +11,7 @@
 
 @implementation CustomTableViewCellWithPopularity
 
-@synthesize posterImg, rateLabel, titleLabel;
+@synthesize posterImg, rateLabel, titleLabel, likeImg, likeBackgroundImg;
 
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
